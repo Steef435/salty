@@ -1,0 +1,19 @@
+salty is an attempt to create  a simple, extendible vi-like web browser
+library built on top of WebKit2GTK+ and written in Vala. An example
+implementation is provided in GJS.
+
+## State of the project
+salty is a new project that hasn't hit any milestones so far. In other words:
+nothing to see here, move along for now.
+
+## Examples
+In order to run the examples, you probably have to export the following
+environment variables:
+
+	export LD_LIBRARY_PATH=.
+	export GI_TYPELIB_PATH=.
+
+Where . is the path to the directory where the library and typelib files are
+located.
+
+Or you can use example/run_local.sh from within the example directory.
