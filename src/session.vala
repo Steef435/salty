@@ -51,6 +51,15 @@ namespace Salty {
 			/* Get options */
 			var options = command_line.get_options_dict();
 
+			var uris = options.lookup_value("", VariantType.STRING_ARRAY);
+			if (uris != null) {
+				foreach (var uri in uris.get_strv()) {
+					debug("Parsed URI from command line: " + URI.from_input(uri));
+
+					/* TODO: Open URI in window */
+				}
+			}
+
 			/* TODO: Handle new window etc. */
 			return 0;
 		}
