@@ -6,6 +6,7 @@ namespace Salty.URI {
 	 * Parse user-generated string as URI
 	 *
 	 * The URI is generated as follows, ordered by decreasing importance:
+	 *
 	 *  * If the input has a scheme, it will be returned as-is.
 	 *  * If  a file with this name exists, a URI to this file will be returned.
 	 *  * If the input contains at least one dot, the input will be returned with an http scheme.

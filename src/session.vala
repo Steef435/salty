@@ -127,6 +127,7 @@ namespace Salty {
 		 * Load settings from default JSON files
 		 *
 		 * Default files are:
+		 *
 		 *  * .salty/settings.json
 		 *  * .salty/sessions/{@link id}/settings.json
 		 *
