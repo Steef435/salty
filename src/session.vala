@@ -12,14 +12,14 @@ namespace Salty {
 		/**
 		 * Session ID
 		 */
-		public string id { get; private set; default = "default"; }
+		public string id { get; protected set; default = "default"; }
 
 		/**
 		 * Session base directory
 		 *
 		 * This is the base directory for all session-related storage. It is usually a directory named {@link id} in the user's HOME/.salty.
 		 */
-		public string directory { get; private set; }
+		public string directory { get; protected set; }
 
 		/**
 		 * Settings dictionary
@@ -28,7 +28,7 @@ namespace Salty {
 		 *
 		 * The settings are usually read from a file, see {@link load_settings}
 		 */
-		public VariantDict settings { get; private set; }
+		public VariantDict settings { get; protected set; }
 
 		construct {
 			/* Set properties */
