@@ -36,6 +36,7 @@ namespace Salty {
 
 			/* Add command line options */
 			add_main_option("session", 's', 0, OptionArg.STRING, "Specify session ID", "SESSION");
+			add_main_option("window", 'w', 0, OptionArg.INT, "Specify window by ID or create new window with -1", "WINDOW");
 			add_main_option("", 0, 0, OptionArg.STRING_ARRAY, "", "URI...");
 
 			/* Connect signals */
@@ -51,16 +52,55 @@ namespace Salty {
 			/* Get options */
 			var options = command_line.get_options_dict();
 
-			var uris = options.lookup_value("", VariantType.STRING_ARRAY);
-			if (uris != null) {
-				foreach (var uri in uris.get_strv()) {
-					debug("Parsed URI from command line: " + URI.from_input(uri));
-
-					/* TODO: Open URI in window */
+			/* Get uris */
+			string[] uris = {};
+			var _uris = options.lookup_value("", VariantType.STRING_ARRAY);
+			if (_uris != null) {
+				foreach (var _uri in _uris.get_strv()) {
+					var uri = URI.from_input(_uri);
+					debug("Parsed URI from command line: " + uri);
+					uris += uri;
 				}
 			}
 
-			/* TODO: Handle new window etc. */
+			/* Choose a window */
+			Window? window = null;
+			var _window = options.lookup_value("window", VariantType.INT32);
+			if (_window == null) {
+				/* No ID specified, use active window */
+				window = active_window as Window;
+			} else {
+				/* ID specified, select window */
+				window = get_window_by_id(_window.get_int32()) as Window;
+			}
+
+			/* If no window has been found so far, create a new one */
+			if (window == null) {
+				window = new Window();
+				add_window(window);
+
+				/* Print window ID */
+				command_line.print("Created window with ID: %u\n", window.get_id());
+			}
+
+			/* Add views to window */
+			foreach (var uri in uris) {
+				var view = new WebView();
+
+				/* Add to window */
+				window.views.append_page(view, view.tab);
+
+				/* Load URI */
+				view.load_uri(uri);
+
+				/* Show it */
+				view.show();
+			}
+
+			/* If we created a new window, show everything */
+			if (!window.visible)
+				window.show_all();
+
 			return 0;
 		}
 
