@@ -114,7 +114,9 @@ namespace Salty {
 				id = sid.get_string();
 			}
 
-			debug("application_id: " + application_id + "." + id);
+			/* Set application ID */
+			application_id = application_id + "." + id;
+			debug("application_id: " + application_id);
 
 			/* Directory */
 			directory = Path.build_filename(Environment.get_home_dir(), ".salty", "session", id);
